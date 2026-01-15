@@ -14,6 +14,7 @@ This project is part of my professional portfolio and demonstrates backend archi
 - SQL Server
 - DTO pattern for data transfer
 - Swagger / OpenAPI
+- **Added**: Middleware Exceptions, Interfaces, Services, SecurityHelpers
 
 **Frontend**
 - Angular

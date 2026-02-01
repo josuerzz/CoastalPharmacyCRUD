@@ -1,0 +1,20 @@
+## Visual studio
+.vs
+[Bb]in
+[Oo]bj
+.user
+.userosscache
+.sln.docstates
+
+## SQL
+.mdf
+.ldf
+.sdf
+
+## Enviroment
+appsettings.json
+appsettings.Development.json
+
+## System files
+.DS_Store
+Thumbs.db

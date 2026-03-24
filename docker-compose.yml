@@ -1,0 +1,31 @@
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: coastal-db
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=SqlPassword2026.
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssql_data:/var/opt/mssql
+
+  api:
+    build: ./Backend
+    container_name: coastal-api
+    depends_on:
+      - db
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=db;Database=CoastalPharmacyDB;User Id=sa;Password=SqlPassword2026.;TrustServerCertificate=True
+    ports:
+      - "5083:8080"
+
+  web:
+    build: ./Frontend
+    container_name: coastal-web
+    ports:
+      - "4200:80"
+    depends_on:
+      - api
+volumes:
+  mssql_data:

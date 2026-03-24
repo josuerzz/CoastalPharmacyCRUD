@@ -1,31 +1,57 @@
 # CoastalPharmacyCRUD
 
-A full-stack CRUD application for pharmacy management, featuring inventory control, transaction logging, and role-based access.  
-This project is part of my professional portfolio and demonstrates backend architecture, clean code practices, and REST API design.
+A full-stack enterprise-grade CRUD application for pharmacy management. It features inventory control, transaction logging, and robust role-based access control (RBAC).
+
+<img src="/assets/screenshoots/Coastal_Pharmacy_Managment_system.png" width="800" alt="summary-preview">
 
 ---
+
+## Key Features
+- **Signals-based State Management:** Leveraging Angular 19 signals for high-performance UI updates.
+- **Secure Authentication:** Implementation of JWT via Http-Only Cookies and Refresh Tokens.
+- **Global Error Handling:** Centralized Backend Middleware and Frontend Interceptors for seamless UX.
+- **Containerized Architecture:** Fully Dockerized for instant deployment.
 
 ## Technologies
 
 **Backend**
-- .NET 7 (C#)
-- Entity Framework Core — Code First
-- ASP.NET Core Identity (password hashing)
-- SQL Server
-- DTO pattern for data transfer
-- Swagger / OpenAPI
-- **Added**: Middleware Exceptions, Interfaces, Services, SecurityHelpers
+- **Framework:** .NET 8 (C#).
+- **Database:** SQL Server + Entity Framework Core — Code First
+- **Security:** Password hashing, JWT, Role-based Authorization
+- **Architecture:** Service-Pattern, DTOs, and Exception Middleware.
 
 **Frontend**
-- Angular
-- TypeScript
+- **Framework:** Angular 19
+- **UI/UX:** SweetAlert2, Reactive Forms, Custom Pagination
+- **Networking:** Functional Interceptors for 401/403 error management.
 
 ---
 
-## Project Setup
+## Quick start (Docker)
+The easiest way to run the entire stack (DB, API, and UI) is using Docker Compose:
 
 ### 1. Clone the repository
-git clone https://github.com/your-username/your-repository.git
+git clone https://github.com/josuerzz/CoastalPharmacyCRUD
+
+```cmd
+cd CoastalPharmacyCRUD
+```
+
+### 2. Launch the services
+```cmd
+docker compose up --build
+```
+
+### 3. Access the app
+- Frontend: http://localhost:4200
+- API Swagger: http://localhost:5083/swagger
+
+--- 
+
+## Manual Setup
+
+### 1. Clone the repository
+git clone https://github.com/josuerzz/CoastalPharmacyCRUD
 
 ## Backend Setup (.NET API)
 
@@ -42,7 +68,7 @@ Update-Database
 dotnet run
 ```
 
-Swagger will be available at: https://localhost:7008/swagger
+Swagger will be available at: https://localhost:5083/swagger
 
 ## Frontend Setup (Angular)
 
@@ -61,13 +87,14 @@ Edit `src/environments/environment.ts`
 
 Set the backend URL like this:
 ```typescript
-export const environment = {
+export const environment = 
+{
   apiUrl: 'https://localhost:4200/api'
 };
 ```
 
 ### 3. Run development server
-Make sure the `src/environments/environment.ts` file points to the address where your .NET API runs. E.g. https://localhost:4200/api.
+Make sure the `src/environments/environment.ts` file points to the address where your .NET API runs. E.g. http://localhost:4200/api
 ```cmd
 ng serve -o
 ```
@@ -79,10 +106,10 @@ http://localhost:4200/
 
 ## API Modules
 
-- **Products** — full inventory CRUD
-- **Users** — authentication & identity
-- **Transactions** — transaction history
-- **Roles / Identifiers** — process & role management
+- **Inventory:** Full CRUD for medicine management
+- **Auth:** Secure login, registration, and session refresh
+- **History:** Automated logging of all stock movements
+- **Permissions:** Admin vs. User restricted views and actions.
 
 ## License
 

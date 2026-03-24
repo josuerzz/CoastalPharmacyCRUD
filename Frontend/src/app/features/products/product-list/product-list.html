@@ -1,0 +1,208 @@
+<div class="inventory-container">
+    <nav>
+        <h1>Coastal Pharmacy Inventory Products</h1>
+        <div class="head-options">
+            <button type="button" class="btn-icon" (click)="onLogOut()">Log out
+                <fa-icon [icon]="faRightFromBracket" class="icon-gray"></fa-icon>
+            </button>
+            <div class="author-info">
+                <span>Built by Josué Rz </span>
+                <img title="author-photo" src="https://github.com/josuerzz.png">
+            </div>
+        </div>
+    </nav>
+
+    <div class="text-welcome">
+        <h3>Welcome, {{userName()}}</h3>
+
+        <h4>{{rolName()}}</h4>
+    </div>
+
+    <main>
+        @if(isAdmin())
+        {
+            <section class="section-form">
+                <h3>CREATE</h3>
+                <form #productForm="ngForm" class="form-add-product" (ngSubmit)="serverStatus() ? onCreateProduct() : offlineAlert()">
+
+                    <div class="input-group">
+                        <input type="text" class="form-field" id="name" placeholder=" " [(ngModel)]="newProduct.name" name="productName" required>
+                        <label for="name">Product Name</label>
+                    </div>
+                    
+                    <div class="input-group" style="display: flex;align-items: center;">
+
+                        @if (!showInputCategory) 
+                        {
+                            <select name="productCategory" class="form-field" id="category" [(ngModel)]="newProduct.categoryId" (change)="onCategoryChange(newProduct.categoryId)" required>
+                            <option [value]="" disabled selected hidden></option>
+                            @for (cat of categories; track cat.id)
+                            {
+                                <option [value]="cat.id">{{ cat.description }}</option>
+                            }
+                            </select>
+                            <label for="category">Category</label>
+                            
+
+                            <button type="button" class="btn-icon" (click)="showInputCategory = true;">
+                                <fa-icon [icon]="faCirclePlus" class="icon-blue"></fa-icon>
+                            </button>
+                        } 
+                        @else 
+                        {
+                            <input type="text" class="form-field" id="category" name="newCategory"  placeholder=" " [(ngModel)]="iTextCategory" (keyup.enter)="onCreateCategory()" autofocus> 
+                            <label for="category" [class.label-active]="showInputCategory">Category</label>
+                            <button type="button" class="btn-icon" (click)="serverStatus() ? onCreateCategory() : offlineAlert()">
+                                <fa-icon [icon]="faCheck" class="icon-blue"></fa-icon>
+                            </button>
+
+                            <button type="button" class="btn-icon" (click)="cancelCategory()">
+                                <fa-icon [icon]="faXmark" class="icon-gray"></fa-icon>
+                            </button>
+                        }
+
+                    </div>
+
+                    <div class="input-group" style="display: flex;align-items: center;">
+                        @if (!showInputSubCategory) 
+                        {
+                            <select name="productSubCategory" class="form-field" id="subcategory" [(ngModel)]="newProduct.subCategoryId" required>
+                            <option [value]="" disabled selected hidden></option>
+                            @for (sat of subCategoriesFiltered; track sat.id)
+                            {
+                                <option [value]="sat.id">{{ sat.description }}</option>
+                            }
+                            </select>
+                            <label for="subcategory">Subcategory</label>
+
+                            <button type="button" class="btn-icon" (click)="showInputSubCategory = true;">
+                                <fa-icon [icon]="faCirclePlus" class="icon-blue"></fa-icon>
+                            </button>
+                        }
+                        @else 
+                        {
+                            <input type="text" class="form-field" id="subcategory" name="newSubcategory"  placeholder=" " [(ngModel)]="iTextSubCategory" (keyup.enter)="onCreateSubCategory()" autofocus> 
+                            <label for="subcategory" [class.label-active]="showInputSubCategory">Subcategory</label>
+                            <button type="button" class="btn-icon" (click)="serverStatus() ? onCreateSubCategory() : offlineAlert()">
+                                <fa-icon [icon]="faCheck" class="icon-blue"></fa-icon>
+                            </button>
+
+                            <button type="button" class="btn-icon" (click)="cancelSubCategory()">
+                                <fa-icon [icon]="faXmark" class="icon-gray"></fa-icon>
+                            </button>
+                        }                 
+                    </div>
+
+                    <div class="input-group">
+                        <input type="number" class="form-field" id="stock" placeholder=" " [(ngModel)]="newProduct.stock" name="productNumber" min="0" pattern="\d+" oninput="this.value = Math.abs(this.value)" required>
+                        <label for="stock">Stock</label>
+                    </div>
+
+                    <div class="input-group">
+                        <textarea type="text" class="form-field" id="description" placeholder=" " [(ngModel)]="newProduct.description" name="productDescription" required></textarea>
+                        <label for="description">Description</label>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="text" class="form-field" id="price" placeholder=" " name="productPrice" [(ngModel)]="newProduct.value" (input)="formatPrice($event)" maxlength="9" required>
+                        <label for="price">Price ej: 14500</label>
+                    </div>
+                    
+                    @if (productPrice)
+                    {
+                        <span class="priceFormatted"> Total: 
+                            <strong>{{ productPrice | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}</strong>
+                        </span> 
+                    }
+
+                    <button type="submit" class="btn-submit" [disabled]="productForm.invalid" [class.btn-disabled]="productForm.invalid">Submit</button>
+                </form>
+                
+                <div class="upload-group">
+                    <div (click)="serverStatus() ? bulkImportComponent.triggerFileSelect() : offlineAlert()" class="upload-content">
+                        <button class="btn-icon">
+                            <fa-icon [icon]="faFileExcel" style="color:rgb(42,200,80)" class="icon-blue"></fa-icon>
+                        </button>
+                        <span>Import</span>
+                    </div>
+                
+                    <div (click)="downloadGuideExcel()" class="upload-content">
+                        <button class="btn-icon">                   
+                            <fa-icon [icon]="faFileCircleQuestion" class="icon-gray" title="Download Guide"></fa-icon>                     
+                        </button>
+                        <span>Download Guide</span>
+                    </div>
+                </div>
+            </section>
+        }
+        <app-product-bulk-import 
+            #bulkImportComponent
+            [categories]="categories" 
+            [subcategories]="subCategories"
+            (onUploadSuccess)="onBulkSuccess()">
+        </app-product-bulk-import>
+
+        <section class="section-table">
+            <h3>LIST OF PRODUCTS</h3>
+            <table>
+                <thead>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>SubCategory</th>
+                    <th>Stock</th>
+                    <th>Value</th>
+                    <th>Description</th>
+                    @if(isAdmin()) {<th>Opts</th>}
+                </thead>
+                <tbody>
+                    @for (product of products | paginate: {itemsPerPage: pageSize(), currentPage: pageNumber}; track $index) 
+                    {
+                        <tr>
+                            <td>{{ product?.name }}</td>
+                            <td>{{ product.categoryName }}</td>
+                            <td>{{ product.subCategoryName }}</td>
+                            <td>{{ product?.stock }}</td>
+                            <td>{{ product?.value | currency: 'COP' : 'symbol-narrow' : '1.0-0'}}</td>
+                            <td class="product-description" style="text-align:justify;">{{ product?.description }}</td>
+                            @if(isAdmin()) 
+                            {
+                                <td style="display:flex;gap: 3px;align-items: center;height: 10vh;">
+                                    <button type="button" class="btn-icon" (click)="onUpdateProduct(product)">
+                                        <fa-icon [icon]="faPenToSquare" class="icon-blue"></fa-icon>
+                                    </button>
+
+                                    <button type="button" class="btn-icon" (click)="deactivateProduct(product.id, product.name)">
+                                        <fa-icon [icon]="faTrash" class="icon-gray"></fa-icon>
+                                    </button>
+                                </td>
+                            }
+
+                        </tr>
+                    }
+                    @empty 
+                    {
+                        <tr>
+                            <td colspan="7">No results found</td>
+                        </tr>   
+                    }
+                </tbody>
+            </table>
+
+            <div class="pagination-controls">
+                <pagination-controls 
+                    (pageChange)="pageNumber = $event"
+                    previousLabel="Back"
+                    nextLabel="Next"
+                    screenReaderPaginationLabel="Pagination"
+                    screenReaderPageLabel="page"
+                    screenReaderCurrentLabel="You're in the page">
+                </pagination-controls>
+                
+                <div (click)="onExportExcel()" class="data-group">
+                     <span>Export</span>
+                     <img src="/excel-icon.svg" alt="Excel Icon" width="50" height="50" alt="Excel Icon" title="Export to Excel">
+                </div>  
+            </div>
+        </section>
+    </main>  
+</div>

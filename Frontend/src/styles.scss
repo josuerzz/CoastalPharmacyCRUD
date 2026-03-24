@@ -1,0 +1,93 @@
+*
+{
+    padding: 0;
+    margin: 0;
+}
+
+:root
+{
+    --blueHeadTable: #00a2e8;
+    --blueBackground: #17adff;
+    --white: #fffcfb;
+    --gray: #858585;
+    --lightGray: #d8d5d578;
+    --dark: #1d1d1d;
+}
+
+html, body
+{
+    height: 100%;
+    background-color: var(--blueBackground);
+}
+
+// Modal toast styles
+.my-swal-toast 
+{
+    font-family: Verdana, Geneva, Tahoma, sans-serif !important;
+    font-size: 16px;
+}
+
+.swal2-popup
+{
+    font-family: Verdana, Geneva, Tahoma, sans-serif !important;
+}
+
+// SweetAlert modal ( Update Product )
+.swal-form-container 
+{
+  display: flex;
+  flex-direction: column;
+  gap: 20px; 
+  text-align: left;
+  padding: 10px 5px;
+}
+
+.swal-grid 
+{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.input-group-swal 
+{
+  display: flex;
+  flex-direction: column;
+  
+  .label-swal 
+  {
+    font-size: 13px;
+    font-weight: bold;
+    color: #17adff;
+    margin-bottom: 5px;
+  }
+
+  .form-field-swal 
+  {
+    border: none;
+    border-bottom: 2px solid #17adff;
+    padding: 8px 5px;
+    font-size: 15px;
+    outline: none;
+    background: #f9f9f9;
+    border-radius: 4px 4px 0 0;
+    
+    &:focus 
+    {
+      background: #fff;
+      border-bottom-width: 3px;
+    }
+  }
+
+  .textarea-swal 
+  {
+    min-height: 120px;
+    resize: vertical;
+    font-family: inherit;
+  }
+}
+
+.swal2-popup 
+{
+  border-radius: 20px !important;
+}

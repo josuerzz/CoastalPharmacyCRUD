@@ -1,0 +1,68 @@
+<input #fileInput type="file" (change)="onFileChange($event)" style="display:none" accept=".xlsx, .xls">
+
+@if(isModalOpen)
+{
+    <div class="modal-overlay">
+        <div class="modal-content">
+            <h2>Preview Bulk Import</h2>
+            <p>Review the data from your Excel file before saving.</p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Subcategory</th>
+                            <th>Stock</th>
+                            <th>Price</th>
+                            <th>Description</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (p of productsToImport; track $index) 
+                        {
+                            <tr>
+                                <td>
+                                    <input [(ngModel)]="p.name" [class.input-error]="!p.name">
+                                    @if (!p.name) {<span class="badge-error">Can not be Empty</span>} @else { }
+                                </td>
+                                <td>
+                                    <span [class.badge-error]="!p.categoryId">
+                                        {{getCategoryName(p.categoryId)}}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span [class.badge-error]="!p.subCategoryId">
+                                        {{getSubCategoryName(p.subCategoryId)}}
+                                    </span>
+                                </td>
+                                <td><input type="number" [(ngModel)]="p.stock" [class.input-error]="p.stock < 0" style="width: 70px;">
+                                    @if (p.stock < 0 || !p.stock) {<div class="badge-error">Must be higher</div>} @else { }
+                                </td>
+                                <td>
+                                    <input type="number" [(ngModel)]="p.value" [class.input-error]="p.value <= 0" style="width: 100px;">
+                                    @if (p.value <= 0) {<div class="badge-error">Must be higher</div>} @else { }
+                                </td>
+                                <td>
+                                    <textarea type="text" class="txt_description" [(ngModel)]="p.description" [class.input-error]="!p.description"></textarea>
+                                </td>
+                                <td style="display: flex !important; justify-content: center !important;">
+                                    <button (click)="removeProductFromImport($index)" class="btn-icon">
+                                        <fa-icon [icon]="faTrash" class="icon-gray"></fa-icon>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-cancel" (click)="closeModal()">Cancel</button>
+                <button class="btn-confirm" [disabled]="hasErrors()" [class.btn-disabled]="hasErrors()" (click)="confirmBulkUpload()">Confirm and Save</button>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,44 @@
+<div class="login-page">
+<main>
+        <section class="section-form">
+            <h3>Sign up</h3>
+            <form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="form-sign">
+
+                <div class="input-group">
+                    <input type="email" formControlName="email" class="form-field" id="email" placeholder=" ">
+                    <label for="email">Email</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="text" formControlName="name" class="form-field" id="name" placeholder=" ">
+                    <label for="name">Name</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="text" formControlName="surname" class="form-field" id="surname" placeholder=" ">
+                    <label for="surname">Surname</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" formControlName="password" [type]="showPassword ? 'text' : 'password'" 
+                    (paste)="$event.preventDefault()" 
+                    (copy)="$event.preventDefault()"
+                    (contextmenu)="$event.preventDefault()"
+                    class="form-field" id="password" placeholder=" ">
+                    <label for="password">Password</label>
+                    @if(passwordValue.length > 0) 
+                    {
+                        <button type="button" class="btn-icon toggle-btn" (click)="toggleShow()">
+                            <fa-icon [icon]="showPassword ? faEyeSlash : faEye" class="icon-blue"></fa-icon>
+                        </button>
+                    }
+                </div>
+
+                <p>Do you have an account? <a routerLink="/login">Sign in here</a></p>
+                            
+                <button type="submit" class="btn-submit" [disabled]="registerForm.invalid" [class.btn-disabled]="registerForm.invalid">Sign up</button>
+            </form>
+        </section>
+    </main> 
+    <app-footer></app-footer>
+</div>

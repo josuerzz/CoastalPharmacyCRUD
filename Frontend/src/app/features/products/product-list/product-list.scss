@@ -1,0 +1,413 @@
+
+.inventory-container
+{
+    background-color: var(--blueBackground);
+    color: var(--white);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.input-group
+{
+    position: relative;
+    width: 100%;
+
+    .form-field
+    {
+        width: 100%;
+        border: none;
+        border-bottom: 3px solid var(--blueBackground);
+        outline: none;
+        padding: 10px 5px;
+        background-color: transparent;
+        font-size: 16px;
+        box-sizing: border-box;
+        transition: border-color 0.2s;
+
+        &:focus
+        {
+            border-bottom-width: 5px;
+        }
+
+    }
+
+    .form-field.ng-invalid.ng-touched
+    {
+        border-bottom: 2px solid #e74c3c;
+        transition: border-color 0.3s ease;
+    }
+
+    .form-field.ng-invalid.ng-touched + label
+    {
+        color: #e74c3c;
+    }
+
+    input:focus + label,
+    input:not(:placeholder-shown) + label 
+    {
+        top: -12px;
+        font-size: 12px;
+        color: var(--blueBackground);
+        font-weight: bold;
+    }
+
+    textarea:focus + label,
+    textarea:not(:placeholder-shown) + label {
+        top: -12px;
+        font-size: 12px;
+        color: var(--blueBackground);
+        font-weight: bold;
+    }
+
+    select
+    {
+        width: 100%;
+        border: none;
+        border-bottom: 3px solid var(--blueBackground);
+        outline: none;
+        padding: 10px 5px;
+        background: transparent;
+        font-size: 16px;
+        appearance: none;
+        cursor: pointer;
+        transition: border-color 0.2s;
+    }
+
+    select:focus + label,
+    select:not(:invalid) + label 
+    {
+        top: -12px;
+        font-size: 12px;
+        color: var(--blueBackground);
+        font-weight: bold;
+    }
+
+    label
+    {
+        position: absolute;
+        top: 10px;
+        left: 5px;
+        color: var(--gray);
+        pointer-events: none;
+        transition: all 0.2s ease-out;
+        font-size: 16px;
+    }
+}
+
+.label-active 
+{
+    top: -12px;
+    font-size: 12px;
+    color: var(--blueBackground);
+    font-weight: bold;
+}
+
+.btn-icon
+{
+  display: inline-flex;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+
+  .icon-blue {
+    display: flex;
+    font-size: 30px;
+    color: var(--blueHeadTable);
+
+    &:hover
+    {
+        color: #68c8fc;
+    }
+
+    &:active
+    {
+        transform: scale(0.9);
+        transition: .2s;
+        color: var(--blueBackground);
+    }
+  }
+
+  .icon-gray 
+  {
+    display: flex;
+    font-size: 30px;
+    color: var(--gray);
+
+    &:hover
+    {
+        color: #a0a0a0;
+    }
+
+    &:active
+    {
+        transform: scale(0.9);
+        transition: .2s;
+        color: var(--lightGray);
+    }
+  }
+}
+
+nav
+{
+    background-color: var(--white);
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    h1
+    {
+        background-color: var(--blueBackground);
+        font-weight: bold;
+        padding: 5px 12px;
+        border-radius: 10px;
+    }
+
+    span
+    {
+        color: var(--gray);
+        font-weight: bold;
+        font-size: 8px;
+    }
+}
+
+.head-options
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    button
+    {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        font-size: 18px;
+
+        color: var(--gray);
+    }
+    .author-info
+    {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img
+        {
+            width: 15px;
+            border-radius: 50%;
+            padding-left: 4px;
+        }
+    }
+}
+
+.text-welcome
+{
+    padding: 20px 0 10px 30px;
+    font-style: italic;
+
+    display: flex;
+    justify-content: space-between;
+
+    h4
+    {
+        margin-right: 20px;
+        padding: 2px 2px;
+        font-style: normal;
+        background-color: var(--white);
+        color: var(--blueBackground);
+        border-radius: 4px;
+    }
+}
+
+main
+{
+    width: 100%;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 50px;
+    padding: 0 20px 0 20px;
+    box-sizing: border-box;
+}
+
+.section-form, .section-table
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.section-form
+{
+    flex: 0 0 450px;
+}
+
+.section-table
+{
+    flex: 1;
+}
+
+section h3
+{
+    font-weight: bolder;
+    font-size: 24px;
+    text-align: center;
+}
+
+.form-add-product
+{
+    display: flex;
+    flex-direction: column;
+    padding: 40px 30px;
+    background-color: var(--white);
+    border-radius: 30px;
+    gap: 20px;
+
+    .btn-submit
+    {
+        border: none;
+        background-color: var(--blueBackground);
+        color: var(--white);
+        font-size: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        width: 180px;
+        border-radius: 15px;
+        padding: 16px;
+
+        margin: 20px auto 0 auto;
+
+        &:hover:not(.btn-disabled)
+        {
+            background-color: #68c8fc;
+        }
+
+        &:active:not(.btn-disabled)
+        {
+            background-color: #479ecc;
+            transform: scale(0.9);
+            transition: .2s;
+        }
+
+        &.btn-disabled
+        {
+            opacity: 0.5;
+            cursor: not-allowed;
+            filter: grayscale(0.5);
+
+            &:active
+            {
+                transform: none;
+                background-color: var(--blueBackground);
+            }
+        }
+    }
+
+    .priceFormatted
+    {
+        color: var(--dark);
+        text-align: start;
+    }
+}
+
+table
+{
+    width: 100%;
+    border-radius: 10px;
+    border-collapse: collapse;
+    border: none;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    
+    thead
+    {
+        background-color: var(--blueHeadTable);
+        
+        th
+        {
+            border: none;
+        }
+    }
+
+    tbody
+    {
+        background-color: var(--white);
+        color: var(--dark);
+    }
+
+    td, th
+    {
+        padding: 10px;
+        border-left: 2px solid var(--lightGray);
+        border-right: 2px solid var(--lightGray);
+
+    }
+}
+
+.data-group
+{
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.upload-group
+{
+    cursor: pointer;
+    text-align: center;
+    padding: 4px;
+    margin: 10px 0 0 0;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: 4px;
+    padding: 4px;
+    color: var(--dark);
+}
+
+.upload-content
+{
+    background-color: var(--white); 
+    width: 49%; 
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4px 0;
+}
+
+// Pagination
+.pagination-controls 
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+
+    ::ng-deep .ngx-pagination {
+        margin-bottom: 0;
+        padding-left: 0;
+
+        .current 
+        {
+            background: var(--white) !important;
+            border-radius: 4px;
+            color: var(--dark);
+        }
+
+        a:hover {
+            background: var(--lightGray);            
+            text-decoration: none;
+            border-radius: 4px;
+        }
+    }
+}

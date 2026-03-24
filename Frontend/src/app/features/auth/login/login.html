@@ -1,0 +1,34 @@
+<div class="login-page">
+    <main>
+            <section class="section-form">
+                <h3>Sign in</h3>
+                <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="form-sign">
+
+                    <div class="input-group">
+                        <input type="email" formControlName="email" class="form-field" id="email" placeholder=" ">
+                        <label for="email">Email</label>
+                    </div>
+
+                    <div class="input-group passw-container">
+                        <input type="password" formControlName="password" [type]="showPassword ? 'text' : 'password'"
+                        (paste)="$event.preventDefault()" 
+                        (copy)="$event.preventDefault()"
+                        (contextmenu)="$event.preventDefault()"
+                        class="form-field" id="password" placeholder=" ">
+                        <label for="password">Password</label>
+                        @if(loginForm.get('password')?.value?.length > 0) 
+                        {
+                            <button type="button" class="btn-icon toggle-btn" (click)="toggleShow()">
+                                <fa-icon [icon]="showPassword ? faEyeSlash : faEye" class="icon-blue"></fa-icon>
+                            </button>
+                        }
+                    </div>
+
+                    <p>Are you new? <a routerLink="/register">Sign up here</a></p>
+                                
+                    <button type="submit" class="btn-submit" (click)="onLogin()" [disabled]="loginForm.invalid" [class.btn-disabled]="loginForm.invalid">Sign in</button>
+                </form>
+            </section>
+    </main> 
+    <app-footer></app-footer>
+</div>

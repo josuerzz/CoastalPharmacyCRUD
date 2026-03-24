@@ -1,0 +1,210 @@
+.login-page 
+{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                url('../../../../assets/pharmacy_background.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+main
+{
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.input-group
+{
+    position: relative;
+    width: 100%;
+
+    .form-field
+    {
+        width: 100%;
+        border: none;
+        border-bottom: 3px solid var(--blueBackground);
+        outline: none;
+        padding: 10px 5px;
+        background-color: transparent;
+        font-size: 16px;
+        box-sizing: border-box;
+        transition: border-color 0.2s;
+
+        &:focus
+        {
+            border-bottom-width: 5px;
+        }
+
+    }
+
+    .form-field.ng-invalid.ng-touched
+    {
+        border-bottom: 2px solid #e74c3c;
+        transition: border-color 0.3s ease;
+    }
+
+    .form-field.ng-invalid.ng-touched + label
+    {
+        color: #e74c3c;
+    }
+
+    input:focus + label,
+    input:not(:placeholder-shown) + label 
+    {
+        top: -12px;
+        font-size: 12px;
+        color: var(--blueBackground);
+        font-weight: bold;
+    }
+
+    label
+    {
+        position: absolute;
+        top: 10px;
+        left: 5px;
+        color: var(--gray);
+        pointer-events: none;
+        transition: all 0.2s ease-out;
+        font-size: 16px;
+    }
+}
+
+.section-form
+{
+    display: flex;
+    flex-direction: column;
+    flex: 0 450px;
+    background-color: var(--white);
+    padding: 14px;
+    border-radius: 20px;
+
+    h3
+    {
+        font-weight: bolder;
+        font-size: 24px;
+        text-align: center;
+        padding-top: 10px;
+    }
+}
+
+.form-sign
+{
+    display: flex;
+    flex-direction: column;
+    padding: 40px 30px;
+    background-color: var(--white);
+    gap: 20px;
+
+    .btn-submit
+    {
+        border: none;
+        background-color: var(--blueBackground);
+        color: var(--white);
+        font-size: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        width: 180px;
+        border-radius: 15px;
+        padding: 16px;
+
+        margin: 20px auto 0 auto;
+
+        &:hover:not(.btn-disabled)
+        {
+            background-color: #68c8fc;
+        }
+
+        &:active:not(.btn-disabled)
+        {
+            background-color: #479ecc;
+            transform: scale(0.9);
+            transition: .2s;
+        }
+
+        &.btn-disabled
+        {
+            opacity: 0.5;
+            cursor: not-allowed;
+            filter: grayscale(0.5);
+
+            &:active
+            {
+                transform: none;
+                background-color: var(--blueBackground);
+            }
+        }
+    }
+}
+
+.btn-icon
+{
+  display: inline-flex;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+
+  .icon-blue {
+    display: flex;
+    font-size: 24px;
+    color: var(--blueHeadTable);
+
+    &:hover
+    {
+        color: #68c8fc;
+    }
+
+    &:active
+    {
+        transform: scale(0.9);
+        transition: .2s;
+        color: var(--blueBackground);
+    }
+  }
+
+  .icon-gray 
+  {
+    display: flex;
+    font-size: 30px;
+    color: var(--gray);
+
+    &:hover
+    {
+        color: #a0a0a0;
+    }
+
+    &:active
+    {
+        transform: scale(0.9);
+        transition: .2s;
+        color: var(--lightGray);
+    }
+  }
+}
+
+.passw-container 
+{
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.toggle-btn 
+{
+    position: absolute;
+    right: 0;
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    z-index: 10;
+}

@@ -2,7 +2,7 @@
 
 A full-stack enterprise-grade CRUD application for pharmacy management. It features inventory control, transaction logging, and robust role-based access control (RBAC).
 
-<img src="/assets/screenshoots/Coastal_Pharmacy_Managment_system.png" width="800" alt="summary-preview">
+<img src="/assets/screenshoots/Coastal_Pharmacy_Managment_system.webp" width="800" alt="summary-preview">
 
 ---
 

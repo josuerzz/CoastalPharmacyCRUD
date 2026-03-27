@@ -37,6 +37,13 @@ git clone https://github.com/josuerzz/CoastalPharmacyCRUD
 cd CoastalPharmacyCRUD
 ```
 
+### 1.1 Create a `.env` file in the root directory based on the `.env.example` file provided.
+
+...After this
+
+### If you are running the project without Docker, update the connection string in `backend/appsettings.json` to point to your local SQL Server instance.
+
+
 ### 2. Launch the services
 ```cmd
 docker compose up --build
@@ -48,7 +55,7 @@ docker compose up --build
 
 --- 
 
-## Manual Setup
+## Manual Setup (Withour Docker)
 
 ### 1. Clone the repository
 git clone https://github.com/josuerzz/CoastalPharmacyCRUD
@@ -57,17 +64,21 @@ git clone https://github.com/josuerzz/CoastalPharmacyCRUD
 
 ### 2. Configure the database
 
-Edit `appsettings.Development.json` and update the `DefaultConnection`.
+1. Ensure you have SQL Server running locally.
 
-Create the database tables:
+2. Edit `appsettings.Development.json` and update the `DefaultConnection`.
+
+  *Note: If you are using our custom port, ensure the server is set to localhost,1435.*
+
+3. Apply migrations to create the database schema:
 ```cmd 
-Update-Database
+cd backend
+dotnet ef update database
 ```
 ### 3. Run the API
 ```cmd
 dotnet run
 ```
-
 Swagger will be available at: https://localhost:5083/swagger
 
 ## Frontend Setup (Angular)
@@ -78,29 +89,58 @@ Requires:
 - Angular CLI
 
 ### 1. Install dependencies
-
+```cmd
+cd frontend
 npm install
-
+```
 ### 2. Configure API URL
 
-Edit `src/environments/environment.ts`
+Edit `src/environments/environment.ts` and set the backend URL (ensure the port matches your .NET API, usually 5083):
 
 Set the backend URL like this:
 ```typescript
 export const environment = 
 {
-  apiUrl: 'https://localhost:4200/api'
+  apiUrl: 'https://localhost:5083/api'
 };
 ```
 
 ### 3. Run development server
-Make sure the `src/environments/environment.ts` file points to the address where your .NET API runs. E.g. http://localhost:4200/api
+
 ```cmd
 ng serve -o
 ```
+The application will run probably at: http://localhost:4200/
 
-Application will run probably at:
-http://localhost:4200/
+[IMPORTANT]
+**Database Seeding:** To initialize the system with default categories and subcategories, execute the SQL scripts located in `backend/data/scripts` in the numbered order.
+
+---
+
+## Troubleshooting (Common Issues)
+
+### 1. Port 1433 Conflict (SQL Server)
+
+If you already have **SQL Server installed locally on Windows**, Docker might fail to bind the port because the system is already using it.
+* **Symptom:** `Error: Bind for 0.0.0.0:1433 failed`.
+* **Solution:** We use port **1435** in the `.env` file to avoid this conflict. Ensure your Connection String or DBeaver points to `localhost,1435`.
+
+### 2. ".env" File Encoding Errors
+
+Docker is strict about file encoding and doesn't like the Windows default (UTF-16).
+* **Symptom:** `failed to read .env: unexpected character ""`.
+* **Solution:** Open your `.env` file in **VS Code**, check the bottom right corner, and ensure the encoding is set to **UTF-8** (not UTF-16 or UTF-8 with BOM).
+
+### 3. "Login Failed for user 'sa'"
+
+If you changed the password in the `.env` file AFTER the database container was already created for the first time:
+* **Symptom:** The API cannot connect even with the new password.
+* **Solution:** Docker volumes persist data. To apply a new password to the engine, you must reset the volume:
+    ```bash
+    docker compose down -v
+    docker compose up -d
+    ```
+    *Warning: This will delete all existing data in the database.*
 
 ---
 

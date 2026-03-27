@@ -14,6 +14,7 @@
 ## Enviroment
 appsettings.json
 appsettings.Development.json
+.env
 
 ## System files
 .DS_Store

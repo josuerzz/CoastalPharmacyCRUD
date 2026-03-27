@@ -4,11 +4,11 @@ services:
     container_name: coastal-db
     environment:
       - ACCEPT_EULA=Y
-      - MSSQL_SA_PASSWORD=SqlPassword2026.
+      - MSSQL_SA_PASSWORD=${DB_PASSWORD}
     ports:
-      - "1433:1433"
+      - "${DB_PORT}:1433"
     volumes:
-      - mssql_data:/var/opt/mssql
+      - mssql_data_ultimate:/var/opt/mssql
 
   api:
     build: ./Backend
@@ -16,7 +16,7 @@ services:
     depends_on:
       - db
     environment:
-      - ConnectionStrings__DefaultConnection=Server=db;Database=CoastalPharmacyDB;User Id=sa;Password=SqlPassword2026.;TrustServerCertificate=True
+      - ConnectionStrings__DefaultConnection=Server=db;Database=${DB_NAME};User Id=${DB_USER};Password=${DB_PASSWORD};TrustServerCertificate=True
     ports:
       - "5083:8080"
 
@@ -28,4 +28,4 @@ services:
     depends_on:
       - api
 volumes:
-  mssql_data:
+  mssql_data_ultimate:

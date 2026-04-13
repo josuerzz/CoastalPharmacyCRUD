@@ -170,6 +170,13 @@ nav
         font-weight: bold;
         font-size: 8px;
     }
+
+    @media (max-width: 780px)
+    {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
 }
 
 .head-options
@@ -225,15 +232,21 @@ nav
 
 main
 {
+    // Movil
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
     width: 100%;
     min-height: 80vh;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 50px;
     padding: 0 20px 0 20px;
     box-sizing: border-box;
+
+    @media (min-width: 1024px) // Desktop
+    {
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
 }
 
 .section-form, .section-table
@@ -244,12 +257,19 @@ main
 
 .section-form
 {
-    flex: 0 0 450px;
+    width: 100%;
+
+    @media (min-width: 1024px) 
+    {
+        flex: 0 0 450px;
+    }
 }
 
 .section-table
 {
     flex: 1;
+    width: 100%;
+    min-width: 0;
 }
 
 section h3
@@ -257,6 +277,15 @@ section h3
     font-weight: bolder;
     font-size: 24px;
     text-align: center;
+}
+
+.table-wrapper
+{
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 1rem;
+    
 }
 
 .form-add-product

@@ -19,7 +19,7 @@
     </div>
 
     <main>
-        @if(isAdmin())
+        @if (isAdmin())
         {
             <section class="section-form">
                 <h3>CREATE</h3>
@@ -144,50 +144,51 @@
 
         <section class="section-table">
             <h3>LIST OF PRODUCTS</h3>
-            <table>
-                <thead>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>SubCategory</th>
-                    <th>Stock</th>
-                    <th>Value</th>
-                    <th>Description</th>
-                    @if(isAdmin()) {<th>Opts</th>}
-                </thead>
-                <tbody>
-                    @for (product of products | paginate: {itemsPerPage: pageSize(), currentPage: pageNumber}; track $index) 
-                    {
-                        <tr>
-                            <td>{{ product?.name }}</td>
-                            <td>{{ product.categoryName }}</td>
-                            <td>{{ product.subCategoryName }}</td>
-                            <td>{{ product?.stock }}</td>
-                            <td>{{ product?.value | currency: 'COP' : 'symbol-narrow' : '1.0-0'}}</td>
-                            <td class="product-description" style="text-align:justify;">{{ product?.description }}</td>
-                            @if(isAdmin()) 
-                            {
-                                <td style="display:flex;gap: 3px;align-items: center;height: 10vh;">
-                                    <button type="button" class="btn-icon" (click)="onUpdateProduct(product)">
-                                        <fa-icon [icon]="faPenToSquare" class="icon-blue"></fa-icon>
-                                    </button>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>SubCategory</th>
+                        <th>Stock</th>
+                        <th>Value</th>
+                        <th>Description</th>
+                        @if(isAdmin()) {<th>Opts</th>}
+                    </thead>
+                    <tbody>
+                        @for (product of products | paginate: {itemsPerPage: pageSize(), currentPage: pageNumber}; track $index) 
+                        {
+                            <tr>
+                                <td>{{ product?.name }}</td>
+                                <td>{{ product.categoryName }}</td>
+                                <td>{{ product.subCategoryName }}</td>
+                                <td>{{ product?.stock }}</td>
+                                <td>{{ product?.value | currency: 'COP' : 'symbol-narrow' : '1.0-0'}}</td>
+                                <td class="product-description" style="text-align:justify;">{{ product?.description }}</td>
+                                @if(isAdmin()) 
+                                {
+                                    <td style="display:flex;gap: 3px;align-items: center;height: 10vh;">
+                                        <button type="button" class="btn-icon" (click)="onUpdateProduct(product)">
+                                            <fa-icon [icon]="faPenToSquare" class="icon-blue"></fa-icon>
+                                        </button>
 
-                                    <button type="button" class="btn-icon" (click)="deactivateProduct(product.id, product.name)">
-                                        <fa-icon [icon]="faTrash" class="icon-gray"></fa-icon>
-                                    </button>
-                                </td>
-                            }
+                                        <button type="button" class="btn-icon" (click)="deactivateProduct(product.id, product.name)">
+                                            <fa-icon [icon]="faTrash" class="icon-gray"></fa-icon>
+                                        </button>
+                                    </td>
+                                }
 
-                        </tr>
-                    }
-                    @empty 
-                    {
-                        <tr>
-                            <td colspan="7">No results found</td>
-                        </tr>   
-                    }
-                </tbody>
-            </table>
-
+                            </tr>
+                        }
+                        @empty 
+                        {
+                            <tr>
+                                <td colspan="7">No results found</td>
+                            </tr>   
+                        }
+                    </tbody>
+                </table>
+            </div>
             <div class="pagination-controls">
                 <pagination-controls 
                     (pageChange)="pageNumber = $event"

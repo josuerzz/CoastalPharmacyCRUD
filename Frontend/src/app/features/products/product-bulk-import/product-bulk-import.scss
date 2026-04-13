@@ -39,6 +39,8 @@
 .table-wrapper 
 {
     overflow-y: auto;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
     margin: 20px 0;
     border: 1px solid #eee;
     border-radius: 8px;

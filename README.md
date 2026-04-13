@@ -22,7 +22,7 @@ A full-stack enterprise-grade CRUD application for pharmacy management. It featu
 
 **Frontend**
 - **Framework:** Angular 19
-- **UI/UX:** SweetAlert2, Reactive Forms, Custom Pagination
+- **UI/UX:** Flexbox Responsive, SweetAlert2, Reactive Forms, Custom Pagination
 - **Networking:** Functional Interceptors for 401/403 error management.
 
 ---
